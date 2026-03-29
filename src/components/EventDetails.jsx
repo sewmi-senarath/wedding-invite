@@ -552,7 +552,7 @@ export default function EventDetails() {
         .tl-mobile-time { display: none; }
       `}</style>
 
-      <section className="ed-root" id="details">
+      <section id="details" className="ed-root">
         <div className="ed-bg" />
         <div className="ed-bg-grain" />
 
@@ -581,14 +581,16 @@ export default function EventDetails() {
         </header>
 
         {/* Timeline */}
-        <div className="tl-container">
-          <div className="tl-spine">
-            <div className="tl-spine-fill" />
+        <section id="timeline">
+          <div className="tl-container">
+            <div className="tl-spine">
+              <div className="tl-spine-fill" />
+            </div>
+            {TIMELINE.map((item, i) => (
+              <TimelineItem key={i} item={item} index={i} />
+            ))}
           </div>
-          {TIMELINE.map((item, i) => (
-            <TimelineItem key={i} item={item} index={i} />
-          ))}
-        </div>
+        </section>
 
         {/* Facts */}
         <div className="ed-facts-strip">

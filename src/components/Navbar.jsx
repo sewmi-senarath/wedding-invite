@@ -2,10 +2,14 @@ import { useState, useEffect, useRef } from "react";
 
 // ── Icons (inline SVGs, no dependency needed) ────────────────────────────────
 const Icons = {
-  Details: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/>
-      <circle cx="12" cy="9" r="2.5"/>
+  Story: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" strokeWidth="1.4"
+        strokeLinecap="round" strokeLinejoin="round">
+
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06
+              a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23
+              l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
     </svg>
   ),
   Timeline: () => (
@@ -42,9 +46,9 @@ const Icons = {
 };
 
 const NAV_ITEMS = [
-  { id: "details",  label: "Event Details", short: "Details",  Icon: Icons.Details  },
-  { id: "timeline", label: "Timeline",       short: "Timeline", Icon: Icons.Timeline },
-  { id: "map",      label: "Venue & Map",    short: "Map",      Icon: Icons.Map      },
+  { id: "timeline", label: "Timeline",       short: "Agenda", Icon: Icons.Timeline },
+  { id: "map",      label: "map",    short: "Map",      Icon: Icons.Map      },
+  { id: "our-story",      label: "Story",    short: "Our Story",      Icon: Icons.Story      },
   { id: "rsvp",     label: "RSVP",           short: "RSVP",     Icon: Icons.RSVP     },
 ];
 

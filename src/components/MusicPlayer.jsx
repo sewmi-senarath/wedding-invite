@@ -1,11 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 
-export default function MusicPlayer() {
+export default function MusicPlayer({ autoPlayTrigger }) {
   const audioRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true); // ✅ default ON
 
-  // Optional subtle animation
+  // Animation
   useEffect(() => {
     gsap.to(".music-btn", {
       scale: 1.05,
@@ -15,6 +15,26 @@ export default function MusicPlayer() {
       ease: "sine.inOut"
     });
   }, []);
+
+  // ✅ Auto play AFTER user interaction
+  useEffect(() => {
+    if (autoPlayTrigger && audioRef.current) {
+      audioRef.current.volume = 0;
+      audioRef.current.play()
+        .then(() => {
+          // Smooth fade-in (premium feel)
+          gsap.to(audioRef.current, {
+            volume: 1,
+            duration: 2
+          });
+          setPlaying(true);
+        })
+        .catch(() => {
+          // If blocked, keep it off
+          setPlaying(false);
+        });
+    }
+  }, [autoPlayTrigger]);
 
   const toggleMusic = () => {
     if (!audioRef.current) return;
@@ -30,12 +50,10 @@ export default function MusicPlayer() {
 
   return (
     <>
-      {/* AUDIO ELEMENT */}
       <audio ref={audioRef} loop>
         <source src="/music/wedding.mp3" type="audio/mpeg" />
       </audio>
 
-      {/* BUTTON */}
       <button
         onClick={toggleMusic}
         className="music-btn fixed bottom-4 right-4 z-50

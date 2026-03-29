@@ -494,7 +494,7 @@ export default function RSVPForm() {
         }
       `}</style>
 
-      <section className="rsvp-root" id="rsvp">
+      <section id="rsvp" className="rsvp-root" >
         <div className="rsvp-bg" />
         <div className="rsvp-bg-grain" />
 

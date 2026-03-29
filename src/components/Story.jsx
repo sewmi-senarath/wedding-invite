@@ -693,7 +693,7 @@ export default function OurStory() {
         }
       `}</style>
 
-      <section className="os-root" id="our-story">
+      <section id="our-story" className="os-root">
 
         {/* Header */}
         <div ref={headerRef} className={`os-header ${headerInView ? "os-h-in" : ""}`}>
