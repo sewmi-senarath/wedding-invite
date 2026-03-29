@@ -36,7 +36,6 @@ function App() {
       {/* Stage 1: Cover */}
       {stage === "cover" && (
         <>
-          <Navbar onNavigate={handleNavigate} />
           <InvitationCover onOpen={handleOpenInvitation} />
         </>
       )}

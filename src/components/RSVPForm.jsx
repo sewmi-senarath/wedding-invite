@@ -57,14 +57,42 @@ export default function RSVPForm() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-      setFormData({ name: "", email: "", attending: "", guests: "1", dietary: "", message: "" });
-    }, 1200);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/rsvp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitted(true);
+
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          attending: "",
+          guests: "1",
+          dietary: "",
+          message: "",
+        });
+      } else {
+        alert(data.error || "Something went wrong");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server not reachable");
+    }
+
+    setSubmitting(false);
   };
 
   // ── Scroll animations ─────────────────────────────────────────────────────
@@ -216,7 +244,7 @@ export default function RSVPForm() {
 
         /* ── Field ── */
         .rf-field {
-          margin-bottom: 32px; position: relative; opacity: 0;
+          margin-bottom: 32px; position: relative; opacity: 1;
         }
         .rf-field:last-of-type { margin-bottom: 36px; }
 
@@ -285,7 +313,7 @@ export default function RSVPForm() {
           padding: 12px 14px;
         }
         .rf-textarea:focus { border-color: #9a7b3a; }
-        .rf-field:focus-within .rf-textarea { border-color: #9a7b3a; }
+        .rf-field:focus-within .rf-textarea { border-color: #9a7b3a;overflow: visible !important; }
 
         /* ── Attend cards ── */
         .rf-attend-grid {
@@ -352,10 +380,14 @@ export default function RSVPForm() {
 
         /* ── Guest counter ── */
         .rf-guest-counter {
-          display: flex; align-items: center;
-          gap: 0; border: 1px solid rgba(154,123,58,0.25);
+          display: flex;
+          align-items: center;
+          gap: 0;
+          border: 1px solid rgba(154,123,58,0.25);
           background: rgba(245,237,224,0.4);
-          width: fit-content;
+
+          width: 160px;     
+          margin-top: 12px; 
         }
         .rf-counter-btn {
           width: 42px; height: 42px;
@@ -494,7 +526,7 @@ export default function RSVPForm() {
         }
       `}</style>
 
-      <section id="rsvp" className="rsvp-root" >
+      <section className="rsvp-root" id="rsvp">
         <div className="rsvp-bg" />
         <div className="rsvp-bg-grain" />
 
@@ -536,7 +568,7 @@ export default function RSVPForm() {
             <div className="rf-eyebrow-line rf-eyebrow-line--right" />
           </div>
           <h2 className="rf-title">RSVP</h2>
-          <p className="rf-subtitle">Please send your RSVP by <strong>1st July 2026</strong></p>
+          <p className="rf-subtitle">Please confirm your attendance by <span>1st July 2026</span></p>
         </header>
 
         {/* Form */}
@@ -554,7 +586,9 @@ export default function RSVPForm() {
                 <input
                   type="text" name="name" className="rf-input"
                   placeholder="Your full name"
-                  value={formData.name} onChange={handleChange} required
+                  value={formData.name} 
+                  onChange={handleChange} 
+                  required
                 />
               </FloatingField>
 
@@ -567,15 +601,20 @@ export default function RSVPForm() {
                   <AttendCard
                     value="yes"
                     selected={formData.attending === "yes"}
-                    onChange={handleChange}
+                    onChange={() =>
+                      setFormData((prev) => ({ ...prev, attending: "yes" }))
+                    }
                     icon="🥂"
                     title="Joyfully Accepts"
                     sub="I'll be there"
                   />
+
                   <AttendCard
                     value="no"
                     selected={formData.attending === "no"}
-                    onChange={handleChange}
+                    onChange={() =>
+                      setFormData((prev) => ({ ...prev, attending: "no" }))
+                    }
                     icon="🕊️"
                     title="Regretfully Declines"
                     sub="Unable to attend"
@@ -584,6 +623,60 @@ export default function RSVPForm() {
                 <div className="rf-field-line" style={{ display: "none" }} />
               </div>
 
+              {/* Conditional fields when attending */}
+              {formData.attending === "yes" && (
+                <>
+                  <div className="rf-section-divider">
+                    <div className="rf-section-divider-line" />
+                    <span className="rf-section-divider-label">Guest Details</span>
+                    <div className="rf-section-divider-line rf-section-divider-line--right" />
+                  </div>
+
+                  <div className="rf-field" style={{ marginBottom: 32 }}>
+                    <div className="rf-field-label">
+                      <span className="rf-label">
+                        Number of Guests <span className="rf-req">*</span>
+                      </span>
+                      <span className="rf-hint">Including yourself</span>
+                    </div>
+
+                    {/* ✅ FORCE VISIBILITY */}
+                    <div style={{ marginTop: "12px" }}>
+                      <div className="rf-guest-counter">
+                        <button
+                          type="button"
+                          className="rf-counter-btn"
+                          disabled={parseInt(formData.guests) <= 1}
+                          onClick={() =>
+                            setFormData((p) => ({
+                              ...p,
+                              guests: String(Math.max(1, parseInt(p.guests) - 1)),
+                            }))
+                          }
+                        >
+                          -
+                        </button>
+
+                        <div className="rf-counter-num">{formData.guests}</div>
+
+                        <button
+                          type="button"
+                          className="rf-counter-btn"
+                          disabled={parseInt(formData.guests) >= 10}
+                          onClick={() =>
+                            setFormData((p) => ({
+                              ...p,
+                              guests: String(Math.min(10, parseInt(p.guests) + 1)),
+                            }))
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
 
               {/* Message */}
               <div className="rf-section-divider">
