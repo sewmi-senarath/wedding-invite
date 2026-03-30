@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/api/rsvp", async (req, res) => {
-  const { name, email, attending, guests, dietary, message } = req.body;
+  const { name, email, attending, guests, message } = req.body;
 
   try {
     const transporter = nodemailer.createTransport({

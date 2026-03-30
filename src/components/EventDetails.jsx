@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── Timeline events ───────────────────────────────────────────────────────────
+// ── Timeline events 
 const TIMELINE = [
   {
     time:  "6:15 PM",
@@ -44,11 +44,11 @@ const TIMELINE = [
 ];
 
 const DETAILS = [
-  { label: "Date",     value: "Thursday, 30 July 2026" },
-  { label: "RSVP by", value: "01 July 2026" },
+  { label: "Date",     value: "Thursday, 30th July 2026" },
+  { label: "RSVP by", value: "Wednesday, 01st July 2026" },
 ];
 
-// ── SVG Icons ─────────────────────────────────────────────────────────────────
+// ── SVG Icons
 const ICONS = {
   rings: (
     <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
@@ -83,7 +83,7 @@ const ICONS = {
   ),
 };
 
-// ── Card content ──────────────────────────────────────────────────────────────
+// ── Card content 
 function CardInner({ item }) {
   return (
     <>
@@ -100,7 +100,7 @@ function CardInner({ item }) {
   );
 }
 
-// ── Single timeline row ───────────────────────────────────────────────────────
+// ── Single timeline row 
 function TimelineItem({ item, index }) {
   const cardRef = useRef();
   const isRight = item.side === "right";
@@ -170,7 +170,7 @@ function TimelineItem({ item, index }) {
   );
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
+// ── Main─────
 export default function EventDetails() {
 
   useEffect(() => {

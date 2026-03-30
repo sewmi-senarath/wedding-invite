@@ -3,43 +3,44 @@ import weddingImg from '/images/wedding1.png'
 import engagementImg from '/images/engagement.jpeg'
 import familyImg from '/images/family.jpeg'
 import perthImg from '/images/perth.jpeg'
+import firstmet from '/images/firstmet.jpeg'
 
-// ── Story milestones ──────────────────────────────────────────────────────────
+// ── Story milestones 
 const MILESTONES = [
   {
     id: 1,
-    date: "December 2017",
+    date: "October 2017",
     emoji: "✨",
     tag: "The Beginning",
     headline: "Two Worlds Collided",
-    body: "Life has a funny way of writing the best stories. It was a cool December evening when fate decided to introduce us for the very first time. Neither of us knew it then, but that single moment quietly changed everything. We talked, we laughed, and something in the air felt different - like the universe had been quietly arranging this all along.",
+    body: "It was a warm afternoon in October 2017 when we first met. What seemed like an ordinary moment quickly turned into something special, easy conversations, shared laughter, and a feeling we couldn’t ignore. Looking back, that simple day became the beginning of our beautiful story together.",
     side: "left",
-    photo: null,          // ← "/images/2017-met.jpg"
-    photoCaption: "The night we met · December 2017",
+    photo: firstmet,          
+    photoCaption: "The night we met · October 2017",
     color: "#e8c87a",
   },
   {
     id: 2,
-    date: "2019",
+    date: "2020",
     emoji: "🏡",
     tag: "Family Matters",
-    headline: "We Told the Families",
-    body: "Two years of stolen glances, long late-night calls, and knowing smiles later - we were ready to make it official to the people who matter most. Telling our parents was equal parts nerve wracking and beautiful. Their blessings meant the world, and in that moment, our little love story became a family story too.",
+    headline: "Officially approved by families",
+    body: "Three years of stolen glances, long late-night calls, and knowing smiles later - we were ready to make it official to the people who matter most. Telling our parents was equal parts nerve wracking and beautiful. Their blessings meant the world, and in that moment, our little love story became a family story too.",
     side: "right",
-    photo: familyImg,          // ← "/images/2019-family.jpg"
-    photoCaption: "With our families · 2019",
+    photo: familyImg,          
+    photoCaption: "With our families · 2020",
     color: "#d4a86a",
   },
   {
     id: 3,
-    date: "January 20, 2022",
+    date: "January 20, 2023",
     emoji: "💍",
     tag: "She Said Yes",
     headline: "We got Engaged",
-    body: "January 20th, 2022. A date forever etched into our hearts. Through happy tears and a resounding memories, we became engaged - two people choosing each other, not just for now, but for always.",
+    body: "January 20th, 2023. A date forever etched into our hearts. Through happy tears and a resounding memories, we became engaged - two people choosing each other, not just for now, but for always.",
     side: "left",
     photo: engagementImg,         
-    photoCaption: "Engaged! · January 20, 2022",
+    photoCaption: "Engaged! · January 20, 2023",
     color: "#c69a5a",
   },
   {
@@ -50,7 +51,7 @@ const MILESTONES = [
     headline: "Hello, Perth!",
     body: "Adventure called, and we answered, together. We packed our lives into luggages, said our heartfelt goodbyes, and boarded a flight to the other side of the world. A new city, a new chapter, and the same two people falling deeper in love with every sunrise.",
     side: "right",
-    photo: perthImg,          // ← "/images/2023-perth.jpg"
+    photo: perthImg,         
     photoCaption: "Arriving in Perth · July 2023",
     color: "#b88c4a",
   },
@@ -62,7 +63,7 @@ const MILESTONES = [
     headline: "Our Wedding Day",
     body: "And now, here we are. Everything - every laugh, every mile, every moment has led us to this. We are ready to stand before the people we love most, look each other in the eyes, and say the words we have always meant. Not an ending, but the most beautiful beginning of all.",
     side: "left",
-    photo: weddingImg,          // ← "/images/2026-wedding.jpg"
+    photo: weddingImg,          
     photoCaption: "Our wedding day · 2026 ♥",
     color: "#a07838",
   },
@@ -70,8 +71,8 @@ const MILESTONES = [
 
 // ── Gallery items ─────────────────────────────────────────────────────────────
 const GALLERY = [
-  { id: 1, label: "When We First Met",    caption: "December 2017 · The night everything changed",  aspect: "portrait"  },
-  { id: 2, label: "Our Engagement",       caption: "January 2022 · She said yes!",                  aspect: "landscape" },
+  { id: 1, label: "When We First Met",    caption: "October 2017 · The night everything changed",  aspect: "portrait"  },
+  { id: 2, label: "Our Engagement",       caption: "January 2023 · She said yes!",                  aspect: "landscape" },
   { id: 3, label: "Sunsets Together",     caption: "Chasing golden skies, always",                  aspect: "portrait"  },
   { id: 4, label: "Perth Adventures",     caption: "July 2023 · Our new home, down under",          aspect: "landscape" },
   { id: 5, label: "Lazy Sunday Mornings", caption: "The quiet moments we treasure most",            aspect: "portrait"  },
@@ -691,6 +692,7 @@ export default function OurStory() {
           font-family:'Cinzel',serif;font-size:0.46rem;
           letter-spacing:0.2em;color:rgba(198,167,105,0.38);
         }
+        
       `}</style>
 
       <section id="our-story" className="os-root">

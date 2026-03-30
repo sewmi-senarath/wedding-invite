@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
-// ── Countdown hook ────────────────────────────────────────────────────────────
+// - Countdown hook 
 function useCountdown(targetDate) {
   const calc = () => {
     const diff = new Date(targetDate) - new Date();
@@ -21,7 +21,7 @@ function useCountdown(targetDate) {
   return time;
 }
 
-// ── Wedding date — change this ────────────────────────────────────────────────
+// - Wedding date — change this
 const WEDDING_DATE = "2026-07-30T18:00:00";
 const WEDDING_DATE_DISPLAY = {
   day:     "30th",
@@ -31,7 +31,7 @@ const WEDDING_DATE_DISPLAY = {
   time:    "6:00 PM",
 };
 
-// ── Particle field ────────────────────────────────────────────────────────────
+// - Particle field 
 function Particles() {
   return (
     <div style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "hidden" }}>
@@ -63,7 +63,7 @@ function Particles() {
   );
 }
 
-// ── Countdown unit ────────────────────────────────────────────────────────────
+// - Countdown unit 
 function CountUnit({ value, label, delay }) {
   const ref = useRef();
   const prev = useRef(value);
@@ -90,7 +90,7 @@ function CountUnit({ value, label, delay }) {
   );
 }
 
-// ── Main component ─────────────────────────────────────────────────────────────
+// - Main component ─
 export default function SaveTheDate({ visible = true }) {
   const sectionRef = useRef();
   const hasAnimated = useRef(false);
@@ -193,7 +193,7 @@ export default function SaveTheDate({ visible = true }) {
           100% { transform: translate(-50%, -50%) scale(1.9); opacity: 0;   }
         }
 
-        /* ── Heart loader animations ── */
+        /* - Heart loader animations - */
         @keyframes heartTraceDraw {
           0%   { stroke-dashoffset: 340; }
           100% { stroke-dashoffset: 0; }
@@ -222,7 +222,7 @@ export default function SaveTheDate({ visible = true }) {
           50%       { opacity: 1;   }
         }
 
-        /* ── Curtain overlay with heart loader ── */
+        /* - Curtain overlay with heart loader - */
         .std-curtain {
           position: absolute;
           inset: 0;
@@ -376,16 +376,48 @@ export default function SaveTheDate({ visible = true }) {
           font-style: italic;
           font-weight: 300;
           font-size: clamp(3rem, 9vw, 6.5rem);
-          color: #0d0905;
           letter-spacing: 0.04em;
           line-height: 1.05;
           text-align: center;
           opacity: 0;
-          text-shadow: 0 2px 20px rgba(198,167,105,0.2);
+
+          /* 🔥 GOLD GRADIENT TEXT */
+          background: linear-gradient(
+            120deg,
+            #5a3a08 0%,
+            #9a7b3a 15%,
+            #e8c870 35%,
+            #c6a769 50%,
+            #e8c870 65%,
+            #9a7b3a 85%,
+            #5a3a08 100%
+          );
+          background-size: 200% auto;
+
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+
+          /* 🔥 GOLD BORDER (KEY PART) */
+          -webkit-text-stroke: 0.6px rgba(154,123,58,0.7);
+
+          /* 🔥 DEPTH + GLOW */
+          text-shadow:
+            0 2px 4px rgba(0,0,0,0.15),
+            0 4px 12px rgba(198,167,105,0.25),
+            0 0 30px rgba(198,167,105,0.15);
+
+          /* 🔥 SHIMMER ANIMATION */
+          animation: std-gold-shimmer 5s linear infinite;
         }
         .std-names-amp {
-          color: #9a7b3a;
-          font-style: italic;
+          background: linear-gradient(135deg, #7a5010, #e8c870, #9a7b3a);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-weight: 400;
+
+          text-shadow:
+            0 0 10px rgba(198,167,105,0.4);
         }
 
         .std-date-pill {
@@ -593,7 +625,7 @@ export default function SaveTheDate({ visible = true }) {
 
       <section className="std-root" ref={sectionRef} id="save-the-date">
 
-        {/* ── Heart loader curtain ── */}
+        {/* - Heart loader curtain - */}
         <div className="std-curtain">
           {/* SVG gradient defs */}
           <svg width="0" height="0" style={{ position: "absolute" }}>
@@ -668,7 +700,7 @@ export default function SaveTheDate({ visible = true }) {
           </svg>
         ))}
 
-        {/* ── Content ── */}
+        {/* - Content - */}
         <div className="std-content">
 
           <div className="std-eyebrow-row">
@@ -678,7 +710,7 @@ export default function SaveTheDate({ visible = true }) {
           </div>
 
           <h1 className="std-names">
-            Thiloka <span className="std-names-amp">&amp;</span> Devin
+            Thiloka <br /><span className="std-names-amp">&amp;</span> <br /> Devin
           </h1>
 
           <div style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>

@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ── Venue data ────────────────────────────────────────────────────────────────
 const VENUE = {
-  name:      "Hilton Colombo",
+  name:      "Hilton Colombo - Ballroom 01",
   address:   "2 Sir Chittampalam A Gardiner Mawatha",
   city:      "Colombo, Sri Lanka",
   phone:     "+94 112 492 492",
@@ -17,7 +17,7 @@ const VENUE = {
 };
 
 const EVENT = {
-  title: "Sewmi & Partner Wedding",
+  title: "Thiloka & Devin Wedding",
   start: "20260730T100000", // YYYYMMDDTHHMMSS
   end:   "20260730T180000",
   location: "Hilton Colombo, Sri Lanka",
@@ -55,14 +55,14 @@ function Stars({ rating }) {
   );
 }
 
-// ── Main component ─────────────────────────────────────────────────────────────
+// ── Main component 
 export default function Map() {
   const [mapLoaded, setMapLoaded] = useState(false);
   const getGoogleCalendarUrl = () => {
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(EVENT.title)}&dates=${EVENT.start}/${EVENT.end}&location=${encodeURIComponent(EVENT.location)}`;
   };
 
-  // ── Scroll-triggered entrance animations ──────────────────────────────────
+  // ── Scroll-triggered entrance animations 
   useEffect(() => {
     gsap.fromTo(".map-eyebrow-row",
       { opacity: 0 },
