@@ -2,10 +2,14 @@ import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { name, email, attending, guests, message } = req.body;
+  const { name, attending, guests, message } = req.body;
+
+  if (!name || !attending) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
 
   try {
     const transporter = nodemailer.createTransport({
@@ -16,24 +20,24 @@ export default async function handler(req, res) {
       },
     });
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+    const mailOptions = {
+      from: "no-reply@weddingrsvp.com",
       to: process.env.EMAIL_USER,
-      subject: "New Wedding RSVP 💌",
+      subject: `New RSVP: ${name}`,
       html: `
-        <h2>New RSVP Received</h2>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Attending:</b> ${attending}</p>
-        <p><b>Guests:</b> ${guests}</p>
-        <p><b>Message:</b> ${message}</p>
+        <h2>New Wedding RSVP</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Attending:</strong> ${attending === "yes" ? "Yes ✅" : "No ❌"}</p>
+        <p><strong>Guests:</strong> ${guests || "N/A"}</p>
+        <p><strong>Message:</strong> ${message || "No message"}</p>
       `,
-    });
+    };
 
-    return res.status(200).json({ message: "Email sent!" });
+    await transporter.sendMail(mailOptions);
 
+    res.status(200).json({ success: true, message: "RSVP received" });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Email failed" });
+    console.error("Email error:", error);
+    res.status(500).json({ error: "Failed to send RSVP" });
   }
 }

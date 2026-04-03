@@ -61,7 +61,7 @@ export default function InvitationCover({ onOpen }) {
     return () => { cancelAnimationFrame(animId); window.removeEventListener("resize", onResize); };
   }, []);
 
-  // ── Mouse parallax ─────────────────────────────────────────────────────────
+  // ── Mouse parallax 
   useEffect(() => {
     const onMove = (e) => {
       mouseRef.current = { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight };
@@ -84,7 +84,7 @@ export default function InvitationCover({ onOpen }) {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-  // ── THREE.JS Ring ──────────────────────────────────────────────────────────
+  // ── THREE.JS Ring 
   useEffect(() => {
     const scene  = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);

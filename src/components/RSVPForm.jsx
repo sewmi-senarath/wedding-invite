@@ -46,11 +46,12 @@ function AttendCard({ value, selected, onChange, icon, title, sub }) {
 // ── Main ──────────────────────────────────────────────────────────────────────
 export default function RSVPForm() {
   const [formData, setFormData] = useState({
-    name: "", email: "", attending: "",
-    guests: "1", dietary: "", message: "",
+    name: "", attending: "",
+    guests: "1", message: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submittedAttending, setSubmittedAttending] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,15 +74,14 @@ export default function RSVPForm() {
       const data = await response.json();
 
       if (response.ok) {
+        setSubmittedAttending(formData.attending); // capture before reset
         setSubmitted(true);
 
         // Reset form
         setFormData({
           name: "",
-          email: "",
           attending: "",
           guests: "1",
-          dietary: "",
           message: "",
         });
       } else {
@@ -524,7 +524,8 @@ export default function RSVPForm() {
         @media (max-width: 500px) {
           .rf-attend-grid { grid-template-columns: 1fr; }
         }
-      `}</style>
+      `}
+      </style>
 
       <section className="rsvp-root" id="rsvp">
         <div className="rsvp-bg" />
@@ -568,7 +569,7 @@ export default function RSVPForm() {
             <div className="rf-eyebrow-line rf-eyebrow-line--right" />
           </div>
           <h2 className="rf-title">RSVP</h2>
-          <p className="rf-subtitle">Please confirm your attendance by <span>1st July 2026</span></p>
+          <p className="rf-subtitle">Please confirm your attendance by <strong>1st July 2026</strong></p>
         </header>
 
         {/* Form */}
@@ -723,13 +724,31 @@ export default function RSVPForm() {
       {submitted && (
         <div className="rf-success" onClick={() => setSubmitted(false)}>
           <div className="rf-success-card" onClick={e => e.stopPropagation()}>
-            <span className="rf-success-icon">💌</span>
-            <h3 className="rf-success-title">Thank You</h3>
-            <div className="rf-success-rule" />
-            <p className="rf-success-sub">
-              Your RSVP has been received.<br/>
-              We look forward to celebrating<br/>this beautiful day with you.
-            </p>
+
+            {submittedAttending === "yes" ? (
+              // ── Attending: YES ──────────────────────────────
+              <>
+                <span className="rf-success-icon">💌</span>
+                <h3 className="rf-success-title">Thank You!</h3>
+                <div className="rf-success-rule" />
+                <p className="rf-success-sub">
+                  Your RSVP has been received.<br/>
+                  We look forward to celebrating<br/>this beautiful day with you.
+                </p>
+              </>
+            ) : (
+              // ── Attending: NO ───────────────────────────────
+              <>
+                <span className="rf-success-icon">🕊️</span>
+                <h3 className="rf-success-title">We'll Miss You</h3>
+                <div className="rf-success-rule" />
+                <p className="rf-success-sub">
+                  Thank you for letting us know.<br/>
+                  You'll be in our hearts<br/>on this special day.
+                </p>
+              </>
+            )}
+
             <button className="rf-success-close" onClick={() => setSubmitted(false)}>
               Close
             </button>
