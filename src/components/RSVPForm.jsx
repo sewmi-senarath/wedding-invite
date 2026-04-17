@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -63,7 +63,7 @@ export default function RSVPForm() {
     setSubmitting(true);
 
     try {
-      const response = await fetch("/api/rsvp", {
+       const response = await fetch("http://localhost:5000/api/rsvp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,6 @@ export default function RSVPForm() {
     return () => { ctx.revert(); ScrollTrigger.getAll().forEach(t => t.kill()); };
   }, []);
 
-  const isAttending = formData.attending === "yes";
 
   return (
     <>
@@ -616,7 +615,7 @@ export default function RSVPForm() {
                     onChange={() =>
                       setFormData((prev) => ({ ...prev, attending: "no" }))
                     }
-                    icon="🕊️"
+                    icon="❤️‍🩹"
                     title="Regretfully Declines"
                     sub="Unable to attend"
                   />
@@ -739,7 +738,7 @@ export default function RSVPForm() {
             ) : (
               // ── Attending: NO ───────────────────────────────
               <>
-                <span className="rf-success-icon">🕊️</span>
+                <span className="rf-success-icon">❤️‍🩹</span>
                 <h3 className="rf-success-title">We'll Miss You</h3>
                 <div className="rf-success-rule" />
                 <p className="rf-success-sub">

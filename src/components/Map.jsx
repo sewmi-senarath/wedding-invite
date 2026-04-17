@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -6,10 +6,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ── Venue data ────────────────────────────────────────────────────────────────
 const VENUE = {
-  name:      "Hilton Colombo - Ballroom 01",
+  name:      "Hilton Colombo - Grand Ballroom",
   address:   "2 Sir Chittampalam A Gardiner Mawatha",
   city:      "Colombo, Sri Lanka",
-  phone:     "+94 112 492 492",
+  phone:     "+94 778 399 990",
   lat:       6.9325497,
   lng:       79.8447402,
   googleMapsUrl: "https://maps.google.com/?q=Hilton+Colombo,+2+Sir+Chittampalam+A+Gardiner+Mawatha,+Colombo",
@@ -18,8 +18,8 @@ const VENUE = {
 
 const EVENT = {
   title: "Thiloka & Devin Wedding",
-  start: "20260730T100000", // YYYYMMDDTHHMMSS
-  end:   "20260730T180000",
+  start: "20260730T183000", // YYYYMMDDTHHMMSS
+  end:   "20260730T233000",
   location: "Hilton Colombo, Sri Lanka",
 };
 

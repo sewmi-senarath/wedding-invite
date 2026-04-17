@@ -11,7 +11,12 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/api/rsvp", async (req, res) => {
-  const { name, email, attending, guests, message } = req.body;
+  const { name, attending, guests, message } = req.body;
+
+  // Validate env vars
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    return res.status(500).json({ error: "Email config missing" });
+  }
 
   try {
     const transporter = nodemailer.createTransport({
@@ -29,23 +34,23 @@ app.post("/api/rsvp", async (req, res) => {
       html: `
         <h2>New RSVP Received</h2>
         <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
         <p><b>Attending:</b> ${attending}</p>
         <p><b>Guests:</b> ${guests}</p>
-        <p><b>Message:</b> ${message}</p>
+        <p><b>Message:</b> ${message || "No message"}</p>
       `,
     };
 
     await transporter.sendMail(mailOptions);
-
     res.status(200).json({ message: "Email sent!" });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Email failed" });
+    console.error("Email error:", error);
+    res.status(500).json({ error: "Email failed: " + error.message });
   }
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });

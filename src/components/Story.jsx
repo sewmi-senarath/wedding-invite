@@ -69,17 +69,17 @@ const MILESTONES = [
   },
 ];
 
-// ── Gallery items ─────────────────────────────────────────────────────────────
+// ── Gallery items
 const GALLERY = [
-  { id: 1, label: "When We First Met",    caption: "October 2017 · The night everything changed",  aspect: "portrait"  },
-  { id: 2, label: "Our Engagement",       caption: "January 2023 · She said yes!",                  aspect: "landscape" },
-  { id: 3, label: "Sunsets Together",     caption: "Chasing golden skies, always",                  aspect: "portrait"  },
-  { id: 4, label: "Perth Adventures",     caption: "July 2023 · Our new home, down under",          aspect: "landscape" },
-  { id: 5, label: "Lazy Sunday Mornings", caption: "The quiet moments we treasure most",            aspect: "portrait"  },
-  { id: 6, label: "Us, Always",           caption: "2026 · Our forever begins",                     aspect: "portrait"  },
+  { id: 1,   aspect: "portrait"  },
+  { id: 2,   aspect: "landscape" },
+  { id: 3,   aspect: "portrait"  },
+  { id: 4, aspect: "landscape" },
+  { id: 5,   aspect: "portrait"  },
+  { id: 6,  aspect: "portrait"  },
 ];
 
-// ── IntersectionObserver hook ─────────────────────────────────────────────────
+// ── IntersectionObserver hook
 function useInView(threshold = 0.12) {
   const ref = useRef();
   const [inView, setInView] = useState(false);
@@ -94,7 +94,7 @@ function useInView(threshold = 0.12) {
   return [ref, inView];
 }
 
-// ── Photo slot with 3-D tilt effect ──────────────────────────────────────────
+// ── Photo slot with 3-D tilt effect
 function PhotoSlot({ m }) {
   const [rot, setRot] = useState({ x: 0, y: 0 });
 
@@ -128,7 +128,7 @@ function PhotoSlot({ m }) {
   );
 }
 
-// ── Milestone row ─────────────────────────────────────────────────────────────
+// ── Milestone row 
 function MilestoneCard({ m, index, activeId, onActivate }) {
   const [ref, inView] = useInView(0.08);
   const isLeft   = m.side === "left";
@@ -175,8 +175,7 @@ function MilestoneCard({ m, index, activeId, onActivate }) {
     </div>
   );
 }
-
-// ── Lightbox ──────────────────────────────────────────────────────────────────
+// ── Lightbox 
 function Lightbox({ items, idx, onClose, onPrev, onNext }) {
   useEffect(() => {
     const fn = (e) => {
@@ -215,7 +214,7 @@ function Lightbox({ items, idx, onClose, onPrev, onNext }) {
   );
 }
 
-// ── Gallery card ──────────────────────────────────────────────────────────────
+// ── Gallery card
 function GalleryCard({ item, index, onOpen }) {
   const [ref, inView] = useInView(0.08);
   const [hov, setHov] = useState(false);
@@ -249,7 +248,7 @@ function GalleryCard({ item, index, onOpen }) {
   );
 }
 
-// ── Gallery section ───────────────────────────────────────────────────────────
+// ── Gallery section 
 function GallerySection() {
   const [ref, inView] = useInView(0.1);
   const [lbIdx, setLbIdx] = useState(null);
@@ -282,7 +281,7 @@ function GallerySection() {
   );
 }
 
-// ── Main export ───────────────────────────────────────────────────────────────
+// ── Main export
 export default function OurStory() {
   const [headerRef, headerInView] = useInView(0.15);
   const [activeId, setActiveId]   = useState(null);
