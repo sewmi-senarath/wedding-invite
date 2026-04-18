@@ -63,7 +63,7 @@ export default function RSVPForm() {
     setSubmitting(true);
 
     try {
-       const response = await fetch("http://localhost:5000/api/rsvp", {
+       const response = await fetch(import.meta.env.VITE_BACKEND_URL , {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -613,7 +613,7 @@ export default function RSVPForm() {
                     value="no"
                     selected={formData.attending === "no"}
                     onChange={() =>
-                      setFormData((prev) => ({ ...prev, attending: "no" }))
+                      setFormData((prev) => ({ ...prev, attending: "no", guests:"0" }))
                     }
                     icon="❤️‍🩹"
                     title="Regretfully Declines"
